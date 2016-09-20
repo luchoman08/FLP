@@ -10,7 +10,7 @@
 
 (define hoja (lambda (numero) (list numero)))
 
-(define nodo (lambda (numero lista-arboles-narios) (cons numero lista-arboles-narios)))
+(define nodo (lambda (numero lista-arboles-narios) (list numero lista-arboles-narios)))
 
 (define vacio? (lambda (x)
                  (if (eq? x 'vacio) #t #f)
@@ -31,7 +31,7 @@
   )
 
 (define extraer-lista-arboles (lambda (x)
-                                (cdr x)
+                                (cadr x)
                                 )
   )
 (define arbol1
@@ -53,7 +53,12 @@
                (hoja 20)
                (hoja 40)
                (hoja 50)
-               (hoja 80)
+               (nodo
+                108
+                (list
+                 (hoja 41)
+                 )
+                )
                (hoja 90)
                )
               )
@@ -67,7 +72,7 @@
 (define extraer-valores-slist (lambda (lista-arboles)
                       (cond
                       ((null? lista-arboles) '())
-                      (else (append (extraer-valores (car lista-arboles)) (extraer-valores-slist (cdr lista-arboles))))
+                      (else (append (extraer-valores (car lista-arboles))  (extraer-valores-slist (cdr lista-arboles))))
                       )
                         )
   )
@@ -79,18 +84,19 @@
                       
 (define extraer-valores (lambda (arbol)
                     (cond
-                      ((vacio? arbol) (list 0))
-                      ((arbol-hoja? arbol) (list (arbol>numero arbol)))
+                      ((vacio? arbol)  (list 0))
+                      ((arbol-hoja? arbol)  arbol)
                       ((arbol-nodo? arbol)  (cons (arbol>numero arbol) (extraer-valores-slist (extraer-lista-arboles arbol))  ))
                       )
                     )
   )
-(define max-list (lambda (list )
-                   (if (null? list)  0 (max (car list) (max-list (cdr list))))
+(define max-list (lambda (l )
+                   (if (null? l)  0
+                       (max (car l) (max-list (cdr l))))
                    )
   )
 (define max-arbol (lambda (arbol)
                 (max-list  (extraer-valores arbol1))
                     )
   )
-(display  (max-arbol   arbol1))
+(display (max-arbol arbol1))
