@@ -8,9 +8,27 @@
 
 (define vacio (lambda () (lambda () 'vacio)))
 
-(define hoja (lambda (numero) (lambda () (list numero))))
+(define hoja (lambda (numero) (lambda ()
+                                (if (number? numero)
+                                    (list numero); si es un numero
+                                    (eopl:error "valor esperado tipo numerico, ingresado: " numero)
+                                    )
+                                )
+               )
+  )
 
-(define nodo (lambda (numero lista-arboles-narios) (lambda ()(list numero lista-arboles-narios))))
+(define nodo (lambda (numero lista-arboles-narios) (lambda ()
+                                                     (cond
+                                                       ((not (number? numero)) (eopl:error "valor esperado tipo numerico, ingresado: " numero))
+                                                       ((not (list? lista-arboles-narios)) (eopl:error "valor esperado tipo lista"))
+                                                        (else
+                                                         (list numero lista-arboles-narios)
+                                                         )
+                                                        )
+                                                     )
+               )
+  )
+                                                     
 
 (define vacio? (lambda (x)
                  (if (eq? (x) 'vacio) #t #f)
@@ -57,6 +75,8 @@
                (hoja 20)
                (hoja 1000)
                (hoja 50)
+               (vacio)
+               (hoja 'hoja)
                (nodo
                 520
                 (list
