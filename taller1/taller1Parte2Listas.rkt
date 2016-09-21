@@ -6,11 +6,23 @@
 ;;:= (hoja) numero
 ;;:= (nodo) numero (list-of-arbol-nario)
 
-(define vacio (lambda () 'vacio))
 
-(define hoja (lambda (numero) (list numero)))
+(define vacio  'vacio)
 
-(define nodo (lambda (numero lista-arboles-narios) (list numero lista-arboles-narios)))
+(define hoja (lambda (numero)
+               (if (number? numero) (list numero) (eopl:error "valor esperado tipo numerico, ingresado: " numero))))
+
+(define nodo (lambda (numero lista-arboles-narios)
+               (cond
+                 ((not (number? numero)) (eopl:error "valor esperado tipo numerico, ingresado: "numero))
+                 ((not (list? lista-arboles-narios)) (eopl:error "valor esperado tipo lista" ))
+                 (else
+                  (list numero lista-arboles-narios)
+                  
+                 )
+                 )
+               )
+  )
 
 (define vacio? (lambda (x)
                  (if (eq? x 'vacio) #t #f)
@@ -36,14 +48,20 @@
   )
 (define arbol1
       (nodo
-            5
+           3
             (list
              (nodo 
               1
               (list
-               'vacio
-               (hoja 11)
+              (nodo
+               5001
+               (list
+                (hoja 5002)
+                (hoja 20)
+                (hoja 'r)
+                )
                )
+              )
               )
              (nodo
               7
@@ -52,7 +70,7 @@
                (hoja 1)
                (hoja 20)
                (hoja 40)
-               (hoja 50)
+               (hoja 109)
                (nodo
                 108
                 (list
@@ -62,10 +80,11 @@
                (hoja 90)
                )
               )
-             (hoja 50)
+             (hoja 1000)
         )
             )
-)
+  )
+
 
 
 
@@ -100,3 +119,4 @@
                     )
   )
 (display (max-arbol arbol1))
+
