@@ -121,8 +121,65 @@
                                )
                               )
                              )
-  )                                     
-
+  )   
+(define recorrido-inorden (lambda (arbol1)
+                            (cases arbol arbol1
+                              (vacio () '())
+                              (hoja (numero) (list numero))
+                              (nodo (numero lista-arboles)
+                               (append  (recorrido-lista-arboles-postorden lista-arboles)  (list numero ))
+                               )
+                              )
+                             )
+  )  
+(define arbol3(nodo
+               1
+               (list
+                (nodo 
+                 2
+                 (list
+                  (hoja 4)
+                  (hoja 5)
+                  )
+                 )
+                (nodo
+                 3
+                 (list
+                  (hoja 6)
+                  (hoja 7)
+                  )
+                 )
+                )
+               )
+  )
+(define arbol4 (nodo
+                10
+                (list
+                 (nodo
+                  5
+                  (list
+                   (hoja 3)
+                   (hoja 7)
+                   )
+                  )
+                 (nodo
+                  12
+                  (list
+                   (hoja 11)
+                   (hoja 15)
+                   )
+                  )
+                 )
+                )
+  )
+                 
+             
+                 
+                
+                
 (display (recorrido-preorden arbol1))
 (newline)
 (display (recorrido-postorden arbol1))
+(newline)
+(display (recorrido-inorden arbol4))
+
