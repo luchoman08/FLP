@@ -110,7 +110,8 @@
                                   )
                                  )
   )
-             
+
+                      
                                      
 (define recorrido-postorden (lambda (arbol1)
                             (cases arbol arbol1
@@ -122,16 +123,30 @@
                               )
                              )
   )   
+
+(define recorrido-lista-arboles-inorden(lambda (lista-arboles)
+                                 (cond
+                                  ((null? lista-arboles) '())
+                                  (else
+                                   (if (pair? lista-arboles)
+                                   (append (recorrido-inorden (car lista-arboles)) (recorrido-lista-arboles-inorden (cdr lista-arboles)))
+                                   (append (recorrido-inorden lista-arboles))
+                                   )
+                                   )
+                                  )
+                                 )
+  )
+
 (define recorrido-inorden (lambda (arbol1)
                             (cases arbol arbol1
                               (vacio () '())
                               (hoja (numero) (list numero))
                               (nodo (numero lista-arboles)
-                               (append  (recorrido-lista-arboles-postorden lista-arboles)  (list numero ))
+                               (append  (recorrido-lista-arboles-inorden (car lista-arboles)) (list numero ) (recorrido-lista-arboles-inorden (cdr lista-arboles)  ))
                                )
                               )
                              )
-  )  
+  ) 
 (define arbol3(nodo
                1
                (list
@@ -167,6 +182,7 @@
                   (list
                    (hoja 11)
                    (hoja 15)
+                   (hoja 15)
                    )
                   )
                  )
@@ -182,4 +198,3 @@
 (display (recorrido-postorden arbol1))
 (newline)
 (display (recorrido-inorden arbol4))
-
