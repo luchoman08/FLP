@@ -54,11 +54,11 @@
               1
               (list
               (nodo
-               5001
+               2088888
                (list
                 (hoja 5002)
                 (hoja 20)
-                (hoja 'r)
+                (hoja 50)
                 )
                )
               )
@@ -66,7 +66,7 @@
              (nodo
               7
               (list
-               'vacio
+               vacio
                (hoja 1)
                (hoja 20)
                (hoja 40)
@@ -74,13 +74,13 @@
                (nodo
                 108
                 (list
-                 (hoja 41)
+                 (hoja 20888882)
                  )
                 )
                (hoja 90)
                )
               )
-             (hoja 1000)
+             (hoja 20888881)
         )
             )
   )
@@ -118,5 +118,5 @@
                 (max-list  (extraer-valores arbol1))
                     )
   )
-(display (max-arbol arbol1))
 
+(max-arbol arbol1)
