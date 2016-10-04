@@ -1,6 +1,6 @@
 #lang eopl
 
-; entrada: lista salida: lista en orden contrario
+;
 (define elementoN-lista (lambda (lista posicion)
                           (cond
                             ((= posicion 0) (car lista))
@@ -172,16 +172,22 @@
                 (list
                  (nodo
                   5
-                  (list
+                  (list    
                    (hoja 3)
                    (hoja 7)
+                   )
+                  )
+                 (nodo
+                  18
+                  (list    
+                   (hoja 19)
+                   (hoja 20)
                    )
                   )
                  (nodo
                   12
                   (list
                    (hoja 11)
-                   (hoja 15)
                    (hoja 15)
                    )
                   )
@@ -193,8 +199,6 @@
                  
                 
                 
-(display (recorrido-preorden arbol1))
-(newline)
-(display (recorrido-postorden arbol1))
-(newline)
-(display (recorrido-inorden arbol4))
+(recorrido-preorden arbol1) ;(10 5 3 1 4 7 9 15 14 17 16 20)
+(recorrido-postorden arbol4) ;(3 7 5 19 20 18 11 15 12 10)
+(recorrido-inorden arbol4) ;(3 5 7 10 19 18 20 11 12 15)
