@@ -1,0 +1,46 @@
+#lang racket 
+
+(define valor-arbol (lambda (x) (car x)))
+(define arbol-izquierdo (lambda (x) (cadr x)))
+(define arbol-derecho (lambda (x) (caddr x)))
+(define hoja? (lambda (x) (number? x)))
+
+(define insertar-arbolbinariobusqueda (lambda (arbol valor)
+                                        (cond
+                                          ((empty? arbol)  valor )
+                                          ((hoja? arbol)
+                                           (cond
+                                             ((>= valor arbol) (list arbol  empty valor))
+                                             (else (list arbol valor empty))
+                                                   )
+                                           )
+                                          (else
+                                           (cond 
+                                             ((>= valor (valor-arbol arbol)) (list  (valor-arbol arbol) (arbol-izquierdo arbol) (insertar-arbolbinariobusqueda (arbol-derecho arbol) valor)))
+                                             ((< valor (valor-arbol arbol)) (list  (valor-arbol arbol)  (insertar-arbolbinariobusqueda (arbol-izquierdo arbol) valor) (arbol-derecho arbol)))
+                                             )
+                                           )
+                                          )
+                                        )
+  )
+
+(define arbol1  empty )
+(display arbol1)
+(define arbol2 (insertar-arbolbinariobusqueda  arbol1 10))
+(newline)
+(display arbol2)
+(define arbol3 (insertar-arbolbinariobusqueda  arbol2 5))
+(newline)
+(display arbol3)
+(define arbol4 (insertar-arbolbinariobusqueda  arbol3 25))
+(newline)
+(display arbol4)
+(define arbol5 (insertar-arbolbinariobusqueda  arbol4 25))
+(newline)
+(display arbol5)
+(define arbol6 (insertar-arbolbinariobusqueda  arbol5 26))
+(newline)
+(display arbol6)
+(define arbol7 (insertar-arbolbinariobusqueda  arbol6 2))
+(newline)
+(display arbol7)
