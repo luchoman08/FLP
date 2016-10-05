@@ -7,17 +7,17 @@
 
 (define insertar-arbolbinariobusqueda (lambda (arbol valor)
                                         (cond
-                                          ((empty? arbol)  valor )
+                                          ((empty? arbol)  (list valor empty empty ))
                                           ((hoja? arbol)
                                            (cond
-                                             ((>= valor arbol) (list arbol  empty valor))
+                                             ((> valor arbol) (list arbol  empty valor))
                                              (else (list arbol valor empty))
                                                    )
                                            )
                                           (else
                                            (cond 
-                                             ((>= valor (valor-arbol arbol)) (list  (valor-arbol arbol) (arbol-izquierdo arbol) (insertar-arbolbinariobusqueda (arbol-derecho arbol) valor)))
-                                             ((< valor (valor-arbol arbol)) (list  (valor-arbol arbol)  (insertar-arbolbinariobusqueda (arbol-izquierdo arbol) valor) (arbol-derecho arbol)))
+                                             ((> valor (valor-arbol arbol)) (list  (valor-arbol arbol) (arbol-izquierdo arbol) (insertar-arbolbinariobusqueda (arbol-derecho arbol) valor)))
+                                             ((<= valor (valor-arbol arbol)) (list  (valor-arbol arbol)  (insertar-arbolbinariobusqueda (arbol-izquierdo arbol) valor) (arbol-derecho arbol)))
                                              )
                                            )
                                           )
@@ -44,3 +44,7 @@
 (define arbol7 (insertar-arbolbinariobusqueda  arbol6 2))
 (newline)
 (display arbol7)
+(newline)
+(display ( insertar-arbolbinariobusqueda ( list 5 ( list 4 ( list 1 empty empty ) empty ) ( list 7 ( list 6 empty empty ) ( list 13 ( list 12 empty empty ) empty ) ) ) 5))
+(newline)
+(display (insertar-arbolbinariobusqueda (list 10 empty empty) 10))
