@@ -11,7 +11,7 @@
 ;
 
 
-
+;Definicion del tipo de dato arbol nario
 (define vacio  'vacio)
 
 (define hoja (lambda (numero)
@@ -132,5 +132,5 @@
                 (max-list  (extraer-valores arbol1))
                     )
   )
-
+;pruebas
 (max-arbol arbol1)
