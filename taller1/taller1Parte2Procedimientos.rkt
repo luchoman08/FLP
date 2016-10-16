@@ -1,10 +1,17 @@
 #lang eopl
+;ERICK LOPEZ PACHECO, 201430406
+;JESUS ALBERTO RAMIREZ, 201422554
+;LUIS GERARDO MANRIQUE CARDONA, 201327951
 
-;;punto 4 -listas
-;;Un arbol numerico n-ario presenta la siguiente gramatica:
-;;arboln-ario := (vacio) empty
-;;:= (hoja) numero
-;;:= (nodo) numero (list-of-arbol-nario)
+;GRAMATICA DE EL ARBOL NARIO
+;arboln-ario := (vacio) empty
+;:= (hoja) numero
+;:= (nodo) numero (list-of-arbol-nario)
+;list-of-arbol-nario := (arbol-nario)+
+;
+
+
+;Definicion del tipo de dato arbol nario
 
 (define vacio (lambda () (lambda () 'vacio)))
 
@@ -29,7 +36,7 @@
                )
   )
                                                      
-
+;Predicados de arbolnario
 (define vacio? (lambda (x)
                  (if (eq? (x) 'vacio) #t #f)
                  )
@@ -47,6 +54,8 @@
   
   )
 )
+
+;extractores de arbolnario
 (define arbol>numero (lambda (x)
                       (car( x))
                       )
@@ -76,7 +85,7 @@
                (hoja 1000)
                (hoja 50)
                (vacio)
-               (hoja 'hoja)
+               (hoja 10)
                (nodo
                 520
                 (list
@@ -93,6 +102,9 @@
 
 
 
+;Función que extrae recorre una slist de arboles y apoyada con extraer-valores
+; retornan una lista con los valores de cada lista de la slist
+;slist-arboles -> list
 (define extraer-valores-slist (lambda (lista-arboles)
                       (cond
                       ((null? lista-arboles) (list 0))
@@ -103,7 +115,10 @@
 
   
                          
-                      
+                         
+;Función que haciendo llamados recursivos y siendo llamada recursivamente de extraer-valores-slist
+;da como resultado una lista con todos los valores de los nodos y hojas de un arbol
+;arbol->lista de valores arbol                   
                       
                       
 (define extraer-valores (lambda (arbol)
@@ -114,13 +129,21 @@
                       )
                     )
   )
+;Función que retorna el maximo valor de una lista de datos numerica
+;list->maximo-list
+
 (define max-list (lambda (l )
                    (if (null? l)  0
                        (max (car l) (max-list (cdr l))))
                    )
   )
+
+;Funcion que retorna el maximo valor que esta albergado entre todos los nodos y hojas de un arbol
+;arbol->maximo-valor-arbol
 (define max-arbol (lambda (arbol)
                 (max-list  (extraer-valores arbol1))
                     )
   )
-(display (max-arbol arbol1))
+
+;pruebas
+(max-arbol arbol1)
