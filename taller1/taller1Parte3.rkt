@@ -1,5 +1,11 @@
+
 #lang eopl
-;punto 3
+;ERICK LOPEZ PACHECO, 201430406
+;JESUS ALBERTO RAMIREZ, 201422554
+;LUIS GERARDO MANRIQUE CARDONA, 201327951
+
+
+;Gramaticas utilizadas
 
 ;operacion := (caso1) operador numero numero
 ;          := (caso2) operador operacion operacion
