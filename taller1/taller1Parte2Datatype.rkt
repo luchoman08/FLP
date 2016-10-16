@@ -1,6 +1,18 @@
 #lang eopl
+;ERICK LOPEZ PACHECO, 201430406
+;JESUS ALBERTO RAMIREZ, 201422554
+;LUIS GERARDO MANRIQUE CARDONA, 201327951
 
+;GRAMATICA DE EL ARBOL NARIO
+;arboln-ario := (vacio) empty
+;:= (hoja) numero
+;:= (nodo) numero (list-of-arbol-nario)
+;list-of-arbol-nario := (arbol-nario)+
 ;
+
+
+
+
 (define elementoN-lista (lambda (lista posicion)
                           (cond
                             ((= posicion 0) (car lista))
