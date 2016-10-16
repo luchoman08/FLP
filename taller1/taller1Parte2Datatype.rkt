@@ -11,7 +11,8 @@
 ;
 
 
-
+;Función que extrae el valor que esta alvergado en una posicion dada de una lista
+;posicion -> valor
 
 (define elementoN-lista (lambda (lista posicion)
                           (cond
@@ -22,6 +23,8 @@
                             )
                           )
   )
+
+
 (define-datatype arbol arbol?
   (vacio)
   (hoja (numero number?))
@@ -89,7 +92,9 @@
     )
 
                    
-                  
+;Función que recorre una lista de arboles y llama recursivamente a recorrido-preorden con cada arbol de la lista
+;con el fin de generar una lista de valores con todos los valores los arboles de la lista 
+;list-arboles -> slist-valores
 
 (define recorrido-lista-arboles-preorden(lambda (lista-arboles)
                                  (cond
@@ -101,7 +106,9 @@
                                  )
   )
                                             
-                                          
+;Función que genera una lista de valores con los valores de un arbol de entrada recorriendolo en preorden,
+;se apolla de recorrido-lista-arboles-preorden para ello 
+;arbol -> lista-valores-preorden
 
 (define recorrido-preorden (lambda (arbol1)
                             (cases arbol arbol1
@@ -113,6 +120,10 @@
                               )
                              )
   )
+
+;Función que recorre una lista de arboles y llama recursivamente a recorrido-posorden con cada arbol de la lista
+;con el fin de generar una lista de valores con todos los valores los arboles de la lista 
+;list-arboles -> slist-valores
 (define recorrido-lista-arboles-postorden(lambda (lista-arboles)
                                  (cond
                                   ((null? lista-arboles) '())
@@ -123,7 +134,9 @@
                                  )
   )
 
-                      
+ ;Función que genera una lista de valores con los valores de un arbol de entrada recorriendolo en postorden,
+;se apolla de recorrido-lista-arboles-postorden para ello 
+;arbol -> lista-valores-postorden                   
                                      
 (define recorrido-postorden (lambda (arbol1)
                             (cases arbol arbol1
@@ -135,7 +148,9 @@
                               )
                              )
   )   
-
+;Función que recorre una lista de arboles y llama recursivamente a recorrido-inorden con cada arbol de la lista
+;con el fin de generar una lista de valores con todos los valores los arboles de la lista 
+;list-arboles -> slist-valores
 (define recorrido-lista-arboles-inorden(lambda (lista-arboles)
                                  (cond
                                   ((null? lista-arboles) '())
@@ -148,7 +163,9 @@
                                   )
                                  )
   )
-
+ ;Función que genera una lista de valores con los valores de un arbol de entrada recorriendolo en inorden,
+;se apolla de recorrido-lista-arboles-inorden para ello 
+;arbol -> lista-valores-inorden    
 (define recorrido-inorden (lambda (arbol1)
                             (cases arbol arbol1
                               (vacio () '())
