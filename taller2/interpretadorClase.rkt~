@@ -78,7 +78,8 @@
                 begin-exp)
     (expression ("set" identifier "=" expression)
                 set-exp)
-    (expression ("empty") empty-exp)
+    (expression ("empty") list-empty-exp)
+    (expression ("cons" "(" expression "," expression ")") cons-exp)
     ;;;;;;
 
     (primitive ("+") add-prim)
@@ -245,7 +246,8 @@
                         (loop (eval-expression (car exps) 
                                                env)
                               (cdr exps)))))
-      (empty-exp() empty)
+      (list-empty-exp() empty)
+      (cons-exp (exp lis) (cons exp lis))
       )))
 
 ; funciones auxiliares para aplicar eval-expression a cada elemento de una 

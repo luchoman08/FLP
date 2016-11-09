@@ -3,9 +3,9 @@
 ;******************************************************************************************
 
 ;;*******************************Equipo de trabajo********************************
-;;-> Erik Lopez Pacheco --- 1430406
-;;-> Luis Manrique ----13xxxxx
-;;-> Jesus Alberto Ramirez ---- 1422554
+;;-> Erik Lopez Pacheco --- 201430406
+;;-> Luis Manrique ---- 201327951
+;;-> Jesus Alberto Ramirez ---- 201422554
 ;;;;; Interpretador para lenguaje con condicionales, ligadura local, procedimientos,
 ;;;;; procedimientos recursivos, ejecución secuencial y asignación de variables
 
@@ -33,6 +33,12 @@
 ;;                     <begin-exp (exp exps)>
 ;;                  ::= set <identifier> = <expression>
 ;;                     <set-exp (id rhsexp)>
+;;                  ::= cons ( <expression> <expression> )
+;;                      <list-exp (valor lista)>
+;;                  ::= empty
+;;                  ::= <list-empty-exp>
+;;                  ::= cond ( <expression> ==> <expression> )* else ==> <expression> end
+;;                  ::= cond-exp (list-test-exp list-true-exp else-exp)
 ;;  <primitive>     ::= + | - | * | add1 | sub1 
 
 ;******************************************************************************************
@@ -79,7 +85,12 @@
     (expression ("set" identifier "=" expression)
                 set-exp)
     (expression ("empty") list-empty-exp)
-    (expression ("cons" "(" expression "," expression ")") cons-exp)
+    (expression ("cons" "(" expression  expression ")") list-exp)
+    (expression ("length" "("expression")") len-exp)
+    (expression ("first" "(" expression ")") first-exp)
+    (expression ("rest" "(" expression ")") rest-exp)
+    (expression ("nth" "("expression number")") nth-exp)
+    (expression ("cond" (arbno expression "==>" expression) "else ==>" expression "end") cond-exp)
     ;;;;;;
 
     (primitive ("+") add-prim)
@@ -246,8 +257,22 @@
                         (loop (eval-expression (car exps) 
                                                env)
                               (cdr exps)))))
-      (list-empty-exp() empty)
-      (cons-exp (exp lis) (cons exp lis))
+      ;;putos del taller evaludos aca
+      (list-empty-exp() '())
+      (list-exp (valor lis) (if (not(number? (eval-expression lis env))) 
+                                (construir-lista (eval-expression valor env) (eval-expression lis env))
+                                (eopl:error "Error: "(eval-expression lis env) "no es una lista"))
+                )
+      (len-exp (lis) 
+               (contar-elementos-lista (eval-expression lis env)))
+      (first-exp (lis) 
+                 (primer-elemento-lista (eval-expression lis env)))
+      (rest-exp (lis) 
+                (resto-lista (eval-expression lis env)))
+      (nth-exp (lis n-element) 
+               (n-elemento-lista (eval-expression lis env) n-element))
+      (cond-exp (test-exps true-exps else-exp) 
+                (eval-cond test-exps true-exps else-exp env))
       )))
 
 ; funciones auxiliares para aplicar eval-expression a cada elemento de una 
@@ -255,6 +280,48 @@
 (define eval-rands
   (lambda (rands env)
     (map (lambda (x) (eval-rand x env)) rands)))
+
+(define construir-lista
+  (lambda (exp lis) (append (list exp) lis))
+  )
+
+(define contar-elementos-lista
+  (lambda (lista) (if (null? lista)
+                      0
+                      (+ 1 (contar-elementos-lista (cdr lista))))))
+(define primer-elemento-lista
+  (lambda (lista) (car lista)))
+
+(define resto-lista
+  (lambda (lista) (cdr lista))
+  )
+
+(define n-elemento-lista
+  (lambda (lista n) (if(eq? n 0)
+                       (car lista)
+                       (n-elemento-lista (cdr lista) (- n 1)))))
+
+(define eval-cond
+  (lambda (list-test list-true else-exp env)
+    (cond 
+      [(auxiliar (eval-rands list-test env)) (auxiliar2 (eval-rands list-test env) (eval-rands list-true env))]
+      [else (eval-expression else-exp env)]
+      )
+    )
+  )
+
+(define auxiliar
+  (lambda (list)
+    (cond
+      [(null? list) #f]
+      [(not (zero? (car list))) #t]
+      [else (auxiliar (cdr list))])))
+
+(define auxiliar2
+  (lambda (list list2)
+    (cond
+      [(not (zero? (car list))) (car list2)]
+      [else (auxiliar2 (cdr list) (cdr list2))])))
 
 (define eval-rand
   (lambda (rand env)
