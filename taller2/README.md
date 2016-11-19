@@ -1,6 +1,7 @@
 #Taller 2 FLP
 #Probado y desarrollado en la versión 6.7 de racket
 #Este archivo contiene las pruebas de el taller
+#Este archivo esta echo pensado como  un .md por lo que para visualización correcta de este es recomendable usar un visor que lo soporte, si no se cuenta con uno puede ser una opcion visitar la dirección de github donde el proyecto se encuentra alojado goo.gl/8JALwj
 
 El presente proyecto intenta implementar un lenguaje de programación lo mas parecido a phython que sea posible, pero por supuesto por las limitaciones de las herramientas que se estan usando para la realización de este no es posible cumplir con todos los requerimientos, ademas se han modificado algunos requerimientos a los expresados en el taller (para bien por supuesto) los cuales son importantes de describir en el presente documento.
 
@@ -64,12 +65,12 @@ La función retornara 100 y m no sera visible fuera de la función.
 
 Lo anterior se ha logrado gracias a la definición de ambientes utilizada, existe una estructura llamada macroambiente la cual tiene la siguiente definición gramatical:
 
-<environment> := <empty-env>
-			  := <extended-env>
+environment  := empty-env
+			 := extended-env
 
 Donde <enpty-env> no tiene argumentos y <extended-env> esta compuesto por por un gvector de simbolos, un gvector de valores y un entero que representa la posición dentro de el macroambiente (el cual resulta ser un gvector de ambientes) en al que se encuentra el ambiente de el que extiende.
 
-<macroambiente> := <pos-current-env> <empty-env> <extended-env> <extended-env>* 
+macroambiente := pos-current-env empty-env extended-env extended-env* 
 
 La primera posición indica en sobre que ambiente se esta trabajando en un momento dado de la ejecución de el programa, el segundo es un ambiente vacio el cual funciona como caso base para varias de las funciones que estan definidas sobre los ambientes y mantienen las propiedades de la recursividad sirviendo como caso base, un ambiente obligatorio que es el ambiente "global", sobre el cual las ejecuciones en la linea de comandos actua, esto es si se hace un var y = 25 en la linea de comandos esta y estar en ese primer y obligatorio ambiente extendido, el resto de ambientes se va creando y eliminando conforme la ejecución del programa se va dando, creando o eliminando en llamados recursivos y en la finalización de la ejecución de procedimientos, <<Actualmente no es posible el paso por referencias ni modificar variables globales desde dentro de los procedimientos, aunque si se pueden ver desde dentro de estos>
 La primera posición indica en sobre que ambiente se esta trabajando en un momento dado de la ejecución de el programa, el segundo es un ambiente vacio el cual funciona como caso base para varias de las funciones que estan definidas sobre los ambientes y mantienen las propiedades de la recursividad sirviendo como caso base, un ambiente obligatorio que es el ambiente "global", sobre el cual las ejecuciones en la linea de comandos actua, esto es si se hace un var y = 25 en la linea de comandos esta y estar en ese primer y obligatorio ambiente extendido, el resto de ambientes se va creando y eliminando conforme la ejecución del programa se va dando, creando o eliminando en llamados recursivos y en la finalización de la ejecución de procedimientos, <<Actualmente no es posible el paso por referencias ni modificar variables globales desde dentro de los procedimientos, aunque si se pueden ver desde dentro de estos>> 
