@@ -144,7 +144,7 @@ end
 En el caso del ejemplo 1 el retorno seria 
 
 1
-#<void>
+<void>
 
 
 var a = 3
